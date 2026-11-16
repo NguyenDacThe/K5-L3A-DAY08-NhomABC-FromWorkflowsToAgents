@@ -13,10 +13,8 @@
 | STT | Họ tên | MSSV | Email | GitHub | Vai trò |
 | --: | ------ | ---- | ----- | ------ | ------- |
 |   1 | Phan Gia Bảo | 2A202603562 | pgb4work@gmail.com | pgb4work-ai-vinuni | workflow + integration |
-|   2 |        |      |       |        |         |
-|   1 |        |      |       |        |         |
 |   2 | Nguyễn Minh Đạt | 2A202603582 | nguyenminhdat6401@gmail.com | https://github.com/nguyenminhdat6401 | Single agent |
-|   3 |        |      |       |        |         |
+|   3 |   Trương Văn Thông |2A202603560|thongthong2k41306@gmail.com|https://github.com/thongthong2k41306-beep |    Orchestrator|
 |   4 |        |      |       |        |         |
 
 Gợi ý chia vai:
