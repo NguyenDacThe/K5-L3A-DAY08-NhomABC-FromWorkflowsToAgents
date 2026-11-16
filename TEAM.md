@@ -6,6 +6,7 @@
 - Lớp: L3A
 - Repo nhóm: `K5-L3A-DAY08-TenNhom-FromWorkflowsToAgents` (xem [SUBMISSION.md](SUBMISSION.md))
 - URL repo, nhánh nộp, commit chốt: https://github.com/NguyenDacThe/K5-L3A-DAY08-NhomABC-FromWorkflowsToAgents, nhánh `main`, commit chốt `<HASH_CHOT>`
+- URL repo, nhánh nộp, commit chốt: https://github.com/NguyenDacThe/K5-L3A-DAY08-NhomABC-FromWorkflowsToAgents, main,
 
 ## Thành viên
 
@@ -13,6 +14,10 @@
 | --: | ------ | ---- | ----- | ------ | ------- |
 |   1 | Phan Gia Bảo | 2A202603562 | pgb4work@gmail.com | pgb4work-ai-vinuni | workflow + integration |
 |   2 |        |      |       |        |         |
+|   1 |        |      |       |        |         |
+|   2 | Nguyễn Minh Đạt | 2A202603582 | nguyenminhdat6401@gmail.com | https://github.com/nguyenminhdat6401 | Single agent |
+|   3 |        |      |       |        |         |
+|   4 |        |      |       |        |         |
 
 Gợi ý chia vai:
 
@@ -26,6 +31,8 @@ Gợi ý chia vai:
 | Người | Vai | Commit | Test đã thêm hoặc sửa |
 | --- | --- | --- | --- |
 | Phan Gia Bảo | workflow + integration | `926aea2ab8c82628a20c41a20c5bb8fb77380e52` | `src/tests/test_workflow_bao.py` (8 test: T02 không tin ticket, T14 full quote, claim không tồn tại, trace không lộ secret/PII) |
+| Trương Văn Thông (2A202603560) | Orchestrator, handoff, trace và kiểm tra retry/crash | th | `src/tests/test_orchestrator.py`: `test_orchestrator_resumes_each_crash_window` (3 trường hợp), `test_orchestrator_unknown_claim_returns_fresh_trace` |
+| Nguyễn Minh Đạt | Triển khai và kiểm thử single agent | eef682d | src/tests/test_student_unknown_claim.py — trường hợp single |
 
 ## Cá nhân
 
@@ -39,15 +46,17 @@ Ví dụ: `report/team/20241234_NguyenVanAn.md`.
 
 Sao chép mục dưới đây cho từng thành viên.
 
-## MSSV_HoTen
+## 2A202603560_TruongVanThong
 
 ### Phần việc phụ trách
 
--
+- Trương Văn Thông — MSSV 2A202603560: shape orchestrator, handoff allowlist, investigator chỉ đọc, trace và kiểm tra retry/crash.
 
 ### Đóng góp cụ thể
 
--
+- Hoàn thiện `src/lab8/shapes/orchestrator.py` với sự hỗ trợ của Codex; giữ nguyên contract, dùng quote đầy đủ và để host kiểm approval, trần hoàn tiền, idempotency.
+- Bổ sung `src/tests/test_orchestrator.py`: ba cửa sổ crash/resume và trường hợp claim không tồn tại.
+- Chưa có commit cá nhân cho các thay đổi này; bổ sung hash thực sau khi commit.
 
 ### Bằng chứng
 
@@ -68,3 +77,43 @@ Sao chép mục dưới đây cho từng thành viên.
 ### Bằng chứng
 
 - Commit `926aea2ab8c82628a20c41a20c5bb8fb77380e52`; ma trận student workflow 62 passed; `check_submission` workflow 12/12; báo cáo chi tiết `report/team/2A202603562_PhanGiaBao.md`.
+- Báo cáo cá nhân: [2A202603560_TruongVanThong.md](report/team/2A202603560_TruongVanThong.md).
+- Ma trận student orchestrator: 62 passed. Test host sau khi thêm test: 58 passed.
+- `src/reports/benchmark.json`: orchestrator pass 70/70 trial public; `src/reports/crash.json`: suite chuẩn 20/20.
+- Run id: `R-orchestrator-C-001-s11`, `R-orchestrator-C-012-s11`. Test crash riêng orchestrator: `test_orchestrator_resumes_each_crash_window`.
+
+## 2A202603582_NguyenMinhDat
+
+### Phần việc phụ trách
+
+- Triển khai và kiểm thử single agent tại
+  src/lab8/shapes/single.py.
+
+### Đóng góp cụ thể
+
+- Triển khai single agent trong src/lab8/shapes/single.py,
+  giữ nguyên chữ ký run_claim.
+- Sử dụng run_react với giới hạn tối đa 8 bước.
+- Viết hàm decide chọn tool đọc dựa trên observation
+  bằng logic Python.
+- Sử dụng lookup_order để kiểm tra phạm vi sở hữu đơn.
+- Dùng compute_compensation tính quote từ dữ liệu order,
+  không tin số ngày trễ trong ticket.
+- Gọi MockLLM và ghi nhận usage qua Budget.
+- Tách thao tác ghi refund khỏi vòng ReAct; gọi host
+  với quote đầy đủ và truyền crash_at.
+- Xử lý các trạng thái needs_info, escalated, denied,
+  resolved và failed.
+- Dùng common.finish để tạo RunResult và ghi trace;
+  đóng kết nối bằng finally.
+- Bổ sung test claim không tồn tại cho single và chạy
+  bộ test riêng đạt 62 passed.
+
+### Bằng chứng 
+
+- Commit: eef682d
+- Test: src/tests/test_student_unknown_claim.py,
+  trường hợp tham số single.
+- Kiểm tra riêng single: 62 passed.
+- Benchmark single: pass rate 1.000, pass^5 1.000.
+- Báo cáo cá nhân: [2A202603582_NguyenMinhDat.md](report/team/2A202603582_NguyenMinhDat.md).
