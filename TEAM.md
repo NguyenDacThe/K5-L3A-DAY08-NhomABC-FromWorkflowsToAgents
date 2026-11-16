@@ -77,11 +77,11 @@ Sao chép mục dưới đây cho từng thành viên.
 - Ghi trace và trả RunResult bằng common.finish.
 - Bổ sung kiểm tra claim không tồn tại cho single.
 
-### Bằng chứng
+### Bằng chứng 
 
 - Commit: eef682d
 - Test: src/tests/test_student_unknown_claim.py,
   trường hợp tham số single.
 - Kiểm tra riêng single: 62 passed.
 - Benchmark single: pass rate 1.000, pass^5 1.000.
-- Báo cáo cá nhân: report/team/2A202603582_NguyenMinhDat.md.
+- Báo cáo cá nhân: [Nguyễn Minh Đạt](report/team/2A202603582_NguyenMinhDat.md).
