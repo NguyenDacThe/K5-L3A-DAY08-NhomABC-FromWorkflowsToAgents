@@ -1,18 +1,25 @@
 # Team
 
+# Team
+
+
+# Team
+
 ## Thông tin nhóm
 
-- Tên nhóm:
+- Tên nhóm: NhomABC
 - Lớp: L3A
 - Repo nhóm: `K5-L3A-DAY08-TenNhom-FromWorkflowsToAgents` (xem [SUBMISSION.md](SUBMISSION.md))
-- URL repo, nhánh nộp, commit chốt:
+- URL repo, nhánh nộp, commit chốt: https://github.com/NguyenDacThe/K5-L3A-DAY08-NhomABC-FromWorkflowsToAgents, main,
 
 ## Thành viên
 
 | STT | Họ tên | MSSV | Email | GitHub | Vai trò |
 | --: | ------ | ---- | ----- | ------ | ------- |
 |   1 |        |      |       |        |         |
-|   2 |        |      |       |        |         |
+|   2 | Nguyễn Minh Đạt | 2A202603582 | nguyenminhdat6401@gmail.com | https://github.com/nguyenminhdat6401 | Single agent |
+|   3 |        |      |       |        |         |
+|   4 |        |      |       |        |         |
 
 Gợi ý chia vai:
 
@@ -26,6 +33,7 @@ Gợi ý chia vai:
 | Người | Vai | Commit | Test đã thêm hoặc sửa |
 | --- | --- | --- | --- |
 | Trương Văn Thông (2A202603560) | Orchestrator, handoff, trace và kiểm tra retry/crash | th | `src/tests/test_orchestrator.py`: `test_orchestrator_resumes_each_crash_window` (3 trường hợp), `test_orchestrator_unknown_claim_returns_fresh_trace` |
+| Nguyễn Minh Đạt | Triển khai và kiểm thử single agent | eef682d | src/tests/test_student_unknown_claim.py — trường hợp single |
 
 ## Cá nhân
 
