@@ -95,4 +95,4 @@ Sao chép mục dưới đây cho từng thành viên.
   trường hợp tham số single.
 - Kiểm tra riêng single: 62 passed.
 - Benchmark single: pass rate 1.000, pass^5 1.000.
-- Báo cáo cá nhân: [Nguyễn Minh Đạt](report/team/2A202603582_NguyenMinhDat.md).
+- Báo cáo cá nhân: [2A202603582_NguyenMinhDat.md](report/team/2A202603582_NguyenMinhDat.md).
