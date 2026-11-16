@@ -4,9 +4,8 @@
 
 - Họ tên: Trương Văn Thông
 - MSSV: 2A202603560
-- Lớp: L3A
-- Email: 
-- GitHub: 
+- Email: thongthong2k41306@gmail.com
+- GitHub: https://github.com/thongthong2k41306-beep
 
 ## 2. Phần việc phụ trách
 

@@ -1,8 +1,4 @@
-# Báo cáo cá nhân — MSSV_HoTen
-
-Đổi tên file theo quy tắc `MSSV_HoTen.md`.
-
-Ví dụ: `20241234_NguyenVanAn.md`.
+# Báo cáo cá nhân — Nguyễn Minh Đạt — 2A202603582
 
 ## 1. Thông tin thành viên
 
@@ -17,8 +13,6 @@ Ví dụ: `20241234_NguyenVanAn.md`.
 Triển khai và kiểm thử single agent tại
 src/lab8/shapes/single.py.
 
-
-...
 
 ## 3. Đóng góp cụ thể
 
@@ -35,15 +29,13 @@ src/lab8/shapes/single.py.
 
 Commit chính: eef682d
 
-...
-
 ## 4. Bằng chứng
 
 - Code: src/lab8/shapes/single.py.
 - Test bổ sung: src/tests/test_student_unknown_claim.py,
   trường hợp tham số single.
 - Bộ test riêng single: 62 passed.
-- Bộ test tích hợp repo update: 305 passed.
+- Kiểm chứng tích hợp toàn nhóm tại phiên bản code `fd7275e`: 78 test host passed và 248 test student passed.
 - Report: src/reports/benchmark.json.
 - Run ID dẫn chứng: R-single-C-001-s11.
 
@@ -56,19 +48,14 @@ Kết quả benchmark single trên 14 claim public và 5 seed:
 
 Các kiểm tra được chạy từ thư mục src.
 
-...
-
 ## 5. Công cụ AI đã dùng
 
-Công cụ, dùng vào việc gì, và bạn đã tự kiểm tra kết quả thế nào (xem [RULES.md](../../RULES.md)).
 Sử dụng ChatGPT/Codex để giải thích yêu cầu, gợi ý code
 single và test, hướng dẫn xử lý lỗi môi trường.
 
 Kiểm chứng kết quả bằng test riêng single, bộ test tích hợp
 và benchmark. Đối chiếu trạng thái, proposal_amount,
 refund và audit thông qua bộ kiểm thử của repo.
-
-...
 
 ## 6. Tự đánh giá
 
@@ -83,5 +70,3 @@ không quyết định action. Vì vậy chưa thể dùng kết quả
 
 Chưa có kết quả hidden. Chi phí là mô phỏng;
 latency là unavailable.
-
-...
