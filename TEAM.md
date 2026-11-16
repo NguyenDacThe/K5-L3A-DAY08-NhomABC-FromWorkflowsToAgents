@@ -1,10 +1,5 @@
 # Team
 
-# Team
-
-
-# Team
-
 ## Thông tin nhóm
 
 - Tên nhóm: NhomABC
