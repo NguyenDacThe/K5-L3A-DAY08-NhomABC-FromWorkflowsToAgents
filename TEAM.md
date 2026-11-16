@@ -5,12 +5,15 @@
 - Tên nhóm: NhomABC
 - Lớp: L3A
 - Repo nhóm: `K5-L3A-DAY08-TenNhom-FromWorkflowsToAgents` (xem [SUBMISSION.md](SUBMISSION.md))
+- URL repo, nhánh nộp, commit chốt: https://github.com/NguyenDacThe/K5-L3A-DAY08-NhomABC-FromWorkflowsToAgents, nhánh `main`, commit chốt `<HASH_CHOT>`
 - URL repo, nhánh nộp, commit chốt: https://github.com/NguyenDacThe/K5-L3A-DAY08-NhomABC-FromWorkflowsToAgents, main,
 
 ## Thành viên
 
 | STT | Họ tên | MSSV | Email | GitHub | Vai trò |
 | --: | ------ | ---- | ----- | ------ | ------- |
+|   1 | Phan Gia Bảo | 2A202603562 | pgb4work@gmail.com | pgb4work-ai-vinuni | workflow + integration |
+|   2 |        |      |       |        |         |
 |   1 |        |      |       |        |         |
 |   2 | Nguyễn Minh Đạt | 2A202603582 | nguyenminhdat6401@gmail.com | https://github.com/nguyenminhdat6401 | Single agent |
 |   3 |        |      |       |        |         |
@@ -27,6 +30,7 @@ Gợi ý chia vai:
 
 | Người | Vai | Commit | Test đã thêm hoặc sửa |
 | --- | --- | --- | --- |
+| Phan Gia Bảo | workflow + integration | `926aea2ab8c82628a20c41a20c5bb8fb77380e52` | `src/tests/test_workflow_bao.py` (8 test: T02 không tin ticket, T14 full quote, claim không tồn tại, trace không lộ secret/PII) |
 | Trương Văn Thông (2A202603560) | Orchestrator, handoff, trace và kiểm tra retry/crash | th | `src/tests/test_orchestrator.py`: `test_orchestrator_resumes_each_crash_window` (3 trường hợp), `test_orchestrator_unknown_claim_returns_fresh_trace` |
 | Nguyễn Minh Đạt | Triển khai và kiểm thử single agent | eef682d | src/tests/test_student_unknown_claim.py — trường hợp single |
 
@@ -56,6 +60,23 @@ Sao chép mục dưới đây cho từng thành viên.
 
 ### Bằng chứng
 
+-
+
+## 2A202603562_PhanGiaBao
+
+### Phần việc phụ trách
+
+- Shape A `workflow` (`src/lab8/shapes/workflow.py`) và integration: ghép code, giữ cổng host xanh, crash suite, benchmark, `check_submission`.
+
+### Đóng góp cụ thể
+
+- Cài đặt workflow cố định: `get_claim_view` → `lookup_order` → `compute_compensation` → `durability.issue_refund` với quote đầy đủ và `crash_at`. MockLLM chỉ soạn chữ.
+- Trace chỉ ghi field allowlist, không ghi ticket, claim row hay order row thô.
+- Thêm `src/tests/test_workflow_bao.py` (8 test).
+
+### Bằng chứng
+
+- Commit `926aea2ab8c82628a20c41a20c5bb8fb77380e52`; ma trận student workflow 62 passed; `check_submission` workflow 12/12; báo cáo chi tiết `report/team/2A202603562_PhanGiaBao.md`.
 - Báo cáo cá nhân: [2A202603560_TruongVanThong.md](report/team/2A202603560_TruongVanThong.md).
 - Ma trận student orchestrator: 62 passed. Test host sau khi thêm test: 58 passed.
 - `src/reports/benchmark.json`: orchestrator pass 70/70 trial public; `src/reports/crash.json`: suite chuẩn 20/20.
