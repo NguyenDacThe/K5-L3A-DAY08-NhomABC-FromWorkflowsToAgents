@@ -28,6 +28,7 @@ Thế nào là một trial pass: xem [docs/metrics.md](docs/metrics.md).
 
 - Tối đa **+10**, tính cho cả nhóm, không cộng vào điểm chính. Tổng sau cộng tối đa 110.
 - Chọn một topic B1–B7 trong [docs/bonus_topics.md](docs/bonus_topics.md). Thang chung: chạy được +3, đo công bằng +4, phân tích có giới hạn +3.
+- Research card/ablation bắt buộc của bài chính chưa đủ để tự nhận điểm bonus. Checker hiện chỉ nhận tiêu đề bonus B1–B6; chênh lệch đối với B7 được ghi rõ ở [SUBMISSION.md](SUBMISSION.md), không thay đổi thang điểm hay yêu cầu topic.
 - Chỉ tính khi shape nhóm chọn qua cả 3 must-pass, đạt pass rate hidden **≥ 0.80**, và `python -m pytest -q` vẫn xanh.
 - Bằng chứng: code trong `src/bonus/`, test `src/tests/test_bonus_*.py`, `src/reports/bonus_*.json`, `report/team/bonus_report.md`.
 

@@ -6,6 +6,8 @@ Phần này không bắt buộc. Mỗi nhóm **chọn đúng 1 topic** dưới �
 
 > **Đường dẫn trong file này:** mọi lệnh chạy trong thư mục `src/`. Các thư mục `bonus/`, `tests/`, `reports/`, `traces/`, `eval/` ở dưới đều nằm trong `src/`. Riêng `report/team/bonus_report.md` nằm ở gốc repo.
 
+**Phạm vi repo nhóm:** ablation R3 draft on/off trong research card thuộc bài chính, không phải một bài bonus B4 hoàn chỉnh. Nhóm chưa khai topic bonus. Danh mục đề có B1–B7 nhưng checker hiện chỉ chấp nhận tiêu đề B1–B6; xem [giới hạn B7](../SUBMISSION.md) trước khi dùng report mẫu. Không sửa code chấm hoặc đổi sai tên topic để tránh lỗi checker.
+
 ## Luật chung
 
 | Luật | Chi tiết |
@@ -42,9 +44,9 @@ Nộp `report/team/bonus_report.md`, tối đa 2 trang, theo khung ở cuối fi
 
 ## B1 · Investigator song song và critical path
 
-**Nguồn:** Google Research 2026, *Towards a Science of Scaling Agent Systems*. Slide 15 (Parallelization), 24 (Graph scheduling), 33 (Latency model), 41.
+**Nguồn:** [Google Research (2026), *Towards a Science of Scaling Agent Systems*](https://research.google/blog/towards-a-science-of-scaling-agent-systems-when-and-why-agent-systems-work/), giới thiệu [preprint arXiv 2025](https://arxiv.org/abs/2512.08296). Slide 15 (Parallelization), 24 (Graph scheduling), 33 (Latency model), 41.
 
-**Claim của nguồn:** multi-agent chỉ có lợi khi task chia song song được. Với task tuần tự, các biến thể multi-agent trong nghiên cứu giảm 39–70%.
+**Claim của nguồn:** trong setup được khảo sát, các biến thể multi-agent giảm hiệu năng 39–70% trên task lập kế hoạch tuần tự PlanCraft. Đây là kết quả theo task/setup, không phải định lý rằng mọi task tuần tự đều giảm như vậy; cần đo lại trên LogiX.
 
 **Việc cần làm**
 
@@ -58,7 +60,7 @@ Nộp `report/team/bonus_report.md`, tối đa 2 trang, theo khung ở cuối fi
 
 ## B2 · Gắn nhãn lỗi theo MAST
 
-**Nguồn:** MAST, NeurIPS 2025, *Why Do Multi-Agent LLM Systems Fail?* Slide 35, 45.
+**Nguồn:** MAST, NeurIPS 2025, [*Why Do Multi-Agent LLM Systems Fail?*](https://arxiv.org/abs/2503.13657). Slide 35, 45.
 
 **Claim của nguồn:** 14 failure mode chia làm 3 nhóm: system design, inter-agent misalignment, task verification. Taxonomy được xây bằng human annotation, κ = 0,88.
 
@@ -74,7 +76,7 @@ Nộp `report/team/bonus_report.md`, tối đa 2 trang, theo khung ở cuối fi
 
 ## B3 · Verifier/aggregator chống khuếch đại lỗi
 
-**Nguồn:** Google Research 2026, error amplification. Agent độc lập khuếch đại lỗi tới 17,2×, orchestration tập trung còn 4,4×. Slide 17 (Evaluator–optimizer), 22 (Reflection), 42.
+**Nguồn:** [Google Research (2026), error amplification](https://research.google/blog/towards-a-science-of-scaling-agent-systems-when-and-why-agent-systems-work/). Trong setup nghiên cứu, agent độc lập khuếch đại lỗi tới 17,2×, orchestration tập trung còn 4,4×; không coi đây là hệ số cố định cho LogiX. Slide 17 (Evaluator–optimizer), 22 (Reflection), 42.
 
 **Việc cần làm**
 
@@ -88,14 +90,14 @@ Nộp `report/team/bonus_report.md`, tối đa 2 trang, theo khung ở cuối fi
 
 ## B4 · Baseline công bằng, ablation và thống kê
 
-**Nguồn:** EMNLP 2026, *Rethinking Evaluation of MAS Efficiency* (slide 44, 59). AgentArch, AACL 2026 (slide 43).
+**Nguồn:** Zhang et al., EMNLP 2026, [*Rethinking the Evaluation of Efficiency Methods for Multi-Agent Systems*](https://aclanthology.org/2026.emnlp-main.798/) (slide 44, 59). [AgentArch, AACL 2026](https://aclanthology.org/2026.aacl-long.44/) (slide 43).
 
 **Claim của nguồn:** "efficiency gain" có thể đến từ cách thiết kế benchmark. Có lúc random pruning vẫn giữ được hiệu năng. Phải so với single-agent và baseline đơn giản, giữ cố định runtime, model và tool.
 
 **Việc cần làm**
 
 1. Dựng 2 baseline: rules-only (không gọi model) và "swarm pruned" (bỏ ngẫu nhiên các lần gọi peer/parse, theo seed).
-2. Ablation trên shape nhóm chọn: mỗi lần bỏ một thành phần (draft model call, investigator, bước kiểm tra) và đo lại.
+2. Ablation trên shape nhóm chọn: mỗi lần bỏ một thành phần (draft model call, investigator, bước kiểm tra phụ ở shape) và đo lại. Không tắt cổng approval, trần theo đơn hoặc idempotency của host.
 3. Viết `bonus/stats.py` chỉ dùng thư viện chuẩn: tính bootstrap 95% CI cho pass rate (resample theo claim), và kiểm định cặp McNemar hoặc sign test giữa hai shape trên cùng cặp (claim, seed).
 
 **Câu phải trả lời:** chênh lệch giữa shape nhóm chọn và swarm có ý nghĩa thống kê không? Thành phần nào bỏ đi mà metric không đổi?
@@ -104,7 +106,7 @@ Nộp `report/team/bonus_report.md`, tối đa 2 trang, theo khung ở cuối fi
 
 ## B5 · Provider idempotency và reconciliation
 
-**Nguồn:** DBOS, *Durable Workflows and Steps* (slide 36–37). Pseudo-code slide 37: "Crash giữa ledger và provider vẫn cần cơ chế recovery."
+**Nguồn:** DBOS, [Workflows](https://docs.dbos.dev/python/tutorials/workflow-tutorial) và [Steps](https://docs.dbos.dev/python/tutorials/step-tutorial) (slide 36–37). Luồng provider hai pha dưới đây là mở rộng trong lab; không coi checkpoint nội bộ là bảo đảm exactly-once cho một dịch vụ bên ngoài.
 
 **Việc cần làm**
 
@@ -118,7 +120,9 @@ Nộp `report/team/bonus_report.md`, tối đa 2 trang, theo khung ở cuối fi
 
 ## B6 · Investigator từ xa theo kiểu A2A
 
-**Nguồn:** A2A v1.0 (slide 58), ProtocolBench, ICML 2026 (slide 28, 48). Theo ProtocolBench, chỉ đổi protocol đã làm completion time chênh tới 36,5% trong một scenario.
+**Nguồn:** [A2A v1.0 specification](https://a2a-protocol.org/v1.0.0/specification/) (slide 58), [ProtocolBench: *Which LLM Multi-Agent Protocol to Choose?*](https://arxiv.org/abs/2510.17149) (preprint 2025; slide 28, 48). ProtocolBench báo completion time chênh tới 36,5% trong scenario Streaming Queue; không áp số này cho MockLLM của lab.
+
+Agent Card, envelope và state machine bên dưới là mô phỏng tối thiểu để nghiên cứu ranh giới remote agent, không chứng nhận triển khai tương thích đầy đủ A2A v1.0.
 
 **Việc cần làm**
 
@@ -132,9 +136,9 @@ Nộp `report/team/bonus_report.md`, tối đa 2 trang, theo khung ở cuối fi
 
 ## B7 · Kiểm toán grader
 
-**Nguồn:** *Rethinking Evaluation of MAS Efficiency* (EMNLP 2026, slide 44, 59) nói rằng kết luận về hiệu năng có thể đến từ cách đo. Ở đây đối tượng bị kiểm là chính bộ đo.
+**Nguồn:** [*Rethinking the Evaluation of Efficiency Methods for Multi-Agent Systems*](https://aclanthology.org/2026.emnlp-main.798/) (EMNLP 2026, slide 44, 59). Ở đây nhóm áp dụng bài học về cách đo vào việc kiểm toán grader của lab.
 
-**Claim của nguồn:** nếu thước đo sai thì mọi so sánh shape đều sai theo, kể cả khi shape đúng. Trial chết vì hạ tầng (timeout, crash) mà bị tính là quyết định sai, hoặc chi phí bị đếm hai lần, đều làm lệch kết luận mà không có test nào kêu.
+**Phân biệt nguồn và suy luận lab:** paper phân tích ảnh hưởng của setup tới kết luận hiệu quả MAS. Việc dùng metamorphic test để tìm lỗi mẫu số hoặc đếm chi phí hai lần trong grader là thí nghiệm của lab, không phải kết quả paper đã đo trên repo này.
 
 **Việc cần làm**
 

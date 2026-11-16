@@ -9,13 +9,9 @@
 
 ## 2. Phần việc phụ trách
 
-
-Triển khai và kiểm thử single agent tại
-src/lab8/shapes/single.py.
-
+Triển khai và kiểm thử single agent tại [single.py](../../src/lab8/shapes/single.py).
 
 ## 3. Đóng góp cụ thể
-
 
 - Giữ nguyên chữ ký run_claim và trả kết quả theo RunResult.
 - Sử dụng run_react với giới hạn max_steps=8.
@@ -27,26 +23,27 @@ src/lab8/shapes/single.py.
 - Kiểm tra trường hợp claim không tồn tại trên single
   trong tests/test_student_unknown_claim.py.
 
-Commit chính: eef682d
+Commit chính: [`eef682d`](https://github.com/NguyenDacThe/K5-L3A-DAY08-NhomABC-FromWorkflowsToAgents/commit/eef682d), đã có trong lịch sử main sau khi tích hợp.
 
 ## 4. Bằng chứng
 
-- Code: src/lab8/shapes/single.py.
-- Test bổ sung: src/tests/test_student_unknown_claim.py,
+- Code: [single.py](../../src/lab8/shapes/single.py).
+- Test bổ sung: [test_student_unknown_claim.py](../../src/tests/test_student_unknown_claim.py),
   trường hợp tham số single.
 - Bộ test riêng single: 62 passed.
 - Kiểm chứng tích hợp toàn nhóm tại phiên bản code `fd7275e`: 78 test host passed và 248 test student passed.
-- Report: src/reports/benchmark.json.
+- Report: [benchmark.json](../../src/reports/benchmark.json), mục `by_shape.single`.
 - Run ID dẫn chứng: R-single-C-001-s11.
 
 Kết quả benchmark single trên 14 claim public và 5 seed:
+
 - Pass rate: 1.000.
 - Pass^5: 1.000.
 - Seed variance: 0.000000.
-- Cost/success: 29.16 VND mô phỏng.
-- Mean/p95 steps: 4.57 / 5.
+- Cost/success: 29,157143 VND mô phỏng theo Budget hiện tại; lưu ý giới hạn ghi tool cost trong [ADR](decision_adr.md).
+- Mean/p95 steps: 4,571429 / 5.
 
-Các kiểm tra được chạy từ thư mục src.
+Các kiểm tra chạy trong `src/`: `python -m pytest -q -m student -o addopts= -k single`. Bộ benchmark 70 trial khác với ma trận student 62 test của shape.
 
 ## 5. Công cụ AI đã dùng
 

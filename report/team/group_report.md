@@ -7,11 +7,11 @@ Tối đa 5 trang ngoài phụ lục. Số liệu lấy từ file trong `src/rep
 - Tên nhóm: NhomABC — lớp L3A, 4 thành viên.
 - Thành viên: xem `TEAM.md`
 - Commit chốt (trùng `report/team/decision_adr.md`): `fd7275e054c501b10f96bcc2272aa945633e6da0` — phiên bản code và bằng chứng; tài liệu được hoàn thiện ở commit sau.
-- Shape chọn: **workflow**. Nhánh hoàn thiện `NguyenDacThe`, đưa vào nhánh nộp `main` qua PR.
+- Shape chọn: **workflow**. Bài đã ghép vào nhánh nộp `main` qua PR #4, merge commit `3d3dbe7`; tài liệu có thể được cập nhật tiếp mà không đổi commit code đã đo.
 
 ## 2. Mục tiêu và cách tiếp cận
 
-Nhóm xử lý claim hoàn phí vận chuyển LogiX-VN bằng ba shape tự triển khai và swarm tham chiếu, chọn kiến trúc ít tự chủ nhất vẫn đúng. Phan Gia Bảo phụ trách workflow/integration; Nguyễn Minh Đạt làm single; Trương Văn Thông làm orchestrator/handoff; Nguyễn Đắc Thể phụ trách kiểm thử tích hợp, evaluation, ablation và tổng hợp tài liệu. Codex hỗ trợ code, test và báo cáo; bằng chứng là output của công cụ thực thi, không phải số liệu do AI dự đoán.
+Nhóm xử lý claim hoàn phí vận chuyển LogiX-VN bằng ba shape tự triển khai và swarm tham chiếu, chọn kiến trúc ít tự chủ nhất vẫn đúng. Phan Gia Bảo phụ trách workflow/integration; Nguyễn Minh Đạt làm single; Trương Văn Thông làm orchestrator/handoff; Nguyễn Đắc Thể phụ trách kiểm thử tích hợp, evaluation, ablation và tổng hợp tài liệu. Các thành viên dùng Claude, ChatGPT/Codex theo khai báo cá nhân; bằng chứng là output của công cụ thực thi, không phải số liệu do AI dự đoán.
 
 Nguồn sự thật là order có cấu trúc và policy hiện hành tại `as_of=2026-11-15`; ticket là dữ liệu không đáng tin. Tiền do code tính; approval, ownership, trần theo đơn và idempotency do host kiểm tra. Các shape chỉ yêu cầu host ghi qua `durability.issue_refund`, truyền quote đầy đủ. Ví dụ T14: quote 150.000 VND, đã hoàn 30.000 VND trước đó, host ghi phần chênh 120.000 VND.
 
@@ -46,7 +46,7 @@ Ba shape nhóm viết đều 70/70. Swarm 69/70: `R-swarm-C-002-s55` tin ticket 
 
 Kiểm chứng bổ sung: cổng host **78 passed, 248 deselected**; ma trận student **248 passed**; [crash.json](../../src/reports/crash.json) đạt **20/20**. Suite chuẩn chủ yếu kiểm host; riêng từng shape được kiểm retry/crash ở T11/T12, ba cửa sổ orchestrator và hai cửa sổ còn thiếu của workflow/single trong test nhóm. Không có `student_drop/` hoặc kết quả hidden; chưa kết luận đạt ngưỡng hidden ≥ 0,75 hay các bộ đếm must-pass chính thức.
 
-Kiểm format bài nộp bằng `lab8.check_submission`: **0 FAIL, 1 WARN**; cảnh báo là tài liệu hoàn thiện còn chưa commit. Bảng đóng góp đủ 4 thành viên. Hash ADR trỏ tới commit code đã đo; cần commit tài liệu và merge PR trước khi nộp.
+Tại bản tài liệu đã commit `6b55066`, kiểm format bằng `lab8.check_submission` đạt **0 FAIL, 0 WARN**; bài sau đó đã merge vào `main`. Bảng đóng góp đủ 4 thành viên. Khi chỉnh sửa tài liệu tiếp, cảnh báo working tree chưa commit có thể xuất hiện; hash ADR vẫn trỏ tới code đã đo nếu chỉ đổi tài liệu.
 
 Ablation R3 dùng cùng workflow, chỉ bật/tắt draft: **140 trial**, cả hai điều kiện 70/70, pass^5 = 1, variance = 0. Model call giảm 1 → 0/trial; cost/success 35,228571 → 34,285714, giảm **2,676399%**. Không lệch cặp nào ở status, kết quả chấm, reason, tool calls và steps. Nguồn: [ablation_workflow_draft.json](../../src/reports/ablation_workflow_draft.json). Điều kiện draft_off là nghiên cứu; bản chọn vẫn là workflow mặc định.
 

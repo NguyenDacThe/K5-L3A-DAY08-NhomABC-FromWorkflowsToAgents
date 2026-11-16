@@ -6,7 +6,7 @@
 - Lớp: L3A
 - Repo nhóm: `K5-L3A-DAY08-NhomABC-FromWorkflowsToAgents`
 - URL repo: https://github.com/NguyenDacThe/K5-L3A-DAY08-NhomABC-FromWorkflowsToAgents
-- Nhánh hoàn thiện: `NguyenDacThe`; nhánh nộp dự kiến: `main` sau khi merge PR.
+- Nhánh nộp: `main`. Phần việc trên `NguyenDacThe` đã được merge qua PR #4 tại commit `3d3dbe7`.
 - Commit code và bằng chứng dẫn chiếu: `fd7275e054c501b10f96bcc2272aa945633e6da0` (thống nhất với ADR và báo cáo nhóm; tài liệu được cập nhật bằng commit sau).
 - Shape chọn: `workflow`, lý do và phạm vi bằng chứng tại [decision_adr.md](report/team/decision_adr.md).
 
@@ -14,17 +14,10 @@
 
 | STT | Họ tên | MSSV | Email | GitHub | Vai trò |
 | --: | ------ | ---- | ----- | ------ | ------- |
-|   1 | Phan Gia Bảo | 2A202603562 | pgb4work@gmail.com | pgb4work-ai-vinuni | workflow + integration |
+|   1 | Phan Gia Bảo | 2A202603562 | pgb4work@gmail.com | https://github.com/pgb4work-ai-vinuni | Workflow + integration |
 |   2 | Nguyễn Minh Đạt | 2A202603582 | nguyenminhdat6401@gmail.com | https://github.com/nguyenminhdat6401 | Single agent |
 |   3 | Trương Văn Thông | 2A202603560 | thongthong2k41306@gmail.com | https://github.com/thongthong2k41306-beep | Orchestrator + handoff |
 |   4 | Nguyễn Đắc Thể | 2A202603529 | dacthebn@gmail.com | https://github.com/NguyenDacThe | Kiểm thử, evaluation, ablation và tổng hợp báo cáo |
-|   3 |   Trương Văn Thông |2A202603560|thongthong2k41306@gmail.com|https://github.com/thongthong2k41306-beep |    Orchestrator|
-|   4 |        |      |       |        |         |
-
-Gợi ý chia vai:
-
-- Nhóm 6 người: integration; workflow; single agent; orchestrator; ledger/policy/crash; eval/report.
-- Nhóm 4 người: workflow + integration; single; orchestrator + handoff; ledger + evaluation.
 
 ## Bảng đóng góp
 

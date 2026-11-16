@@ -15,7 +15,7 @@ Grader **không đọc câu chữ trả lời khách**. Nó chấm `RunResult` v
 | Quote = 0 (trễ < 3 ngày, đơn hủy, phí 0, policy cũ…) | `denied` | `0` | Không có dòng. Không gọi `issue_refund` |
 | Quote > 0 nhưng host từ chối (approval hỏng, approval của claim khác, đơn đã hoàn đủ) | `denied` | **quote đầy đủ** | Không có dòng, có audit `policy_denied` |
 | Quote > 0, host chấp nhận | `resolved` | **quote đầy đủ** (không phải số đã ghi) | Một dòng, số tiền do host tính sau khi cap |
-| Gọi lại với số tiền khác số đã commit | `failed` | quote | Giữ dòng cũ |
+| Retry khiến amount host tính sau các cap khác amount đã commit | `failed` | quote | Giữ dòng cũ. Chỉ đổi quote nhưng amount sau cap vẫn như cũ thì có thể là idempotent replay |
 | `claim_id` không tồn tại | `failed` | `0` | Không có dòng |
 
 Quy tắc bắt buộc:
@@ -24,8 +24,8 @@ Quy tắc bắt buộc:
 - `claim_id` trong kết quả phải đúng claim được giao (nếu khác thì fail `wrong_claim_id`). `run_id` dùng `make_run_id(shape, claim_id, seed)`.
 - `proposal_amount` là số nguyên VND, không phải chuỗi `"35.000đ"`.
 - Muốn quote > 0 được chấm `policy_denied` thì phải **gọi `durability.issue_refund`** để host ghi audit. Shape tự từ chối thì không có audit, nên fail.
-- **Truyền `crash_at` vào `durability.issue_refund` và không bắt `InjectedCrash`.** T12 kiểm crash có thật sự xảy ra hay không.
-- `run_claim` không được ném exception. Grader ghi trial đó là `exception:<lỗi>` (fail) rồi chấm tiếp.
+- **Truyền `crash_at` vào `durability.issue_refund` và không nuốt `InjectedCrash`.** Có thể bắt để ghi trace rồi phải `raise` lại. T12 kiểm crash có thật sự xảy ra hay không; không trả `RunResult` giả thành công thay cho crash.
+- Trong lần chạy bình thường, `run_claim` phải trả `RunResult`, không ném lỗi ngoài dự kiến. Grader ghi lỗi đó là `exception:<lỗi>` (fail) rồi chấm tiếp. `InjectedCrash` khi test cố ý truyền `crash_at` là ngoại lệ bắt buộc lan ra ngoài. CLI `lab8.run` bắt riêng lỗi này, in `crashed: true` và trả exit code 2.
 
 ## Trace contract v1
 
@@ -42,4 +42,4 @@ Nhóm **được tự viết tracer** (thêm span, timing, cách redact riêng).
 
 Grader **fail-closed**: thiếu trace (`missing_trace`), trace cũ của lần chạy trước (`stale_trace`), sai format (`invalid_trace`) hoặc sai `run_id` (`trace_run_id_mismatch`) đều làm trial fail. Lý do: scanner không đọc được log thì không thể chứng minh log đó sạch. Grader quét `trace_path` và mọi file `<run_id>*` cùng thư mục. File ở chỗ khác hay output ra stdout thì grader không thấy, nhưng vẫn bị tính là vi phạm khi giảng viên kiểm tra.
 
-Lỗi hay gặp nhất: ghi nguyên claim row hoặc order row vào trace để debug. Claim row có `parent_secret`, order row có SĐT và địa chỉ. Chỉ ghi các field đã qua allowlist (`get_claim_view`, `lookup_order`, handoff đã sanitize).
+Lỗi hay gặp nhất: ghi nguyên claim row hoặc order row vào trace để debug. Claim row thô có `parent_secret`, order row thô có SĐT và địa chỉ. `lookup_order` và handoff có allowlist; `get_claim_view` bỏ secret/header nhưng **vẫn có ticket**, là dữ liệu không đáng tin. Không dump cả view chỉ vì nó đã bỏ một số field: lựa chọn field cần thiết cho trace và không ghi ticket/parent context. Bản workflow của nhóm chỉ trace `found`/`has_order_id` cho bước claim.

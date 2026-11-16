@@ -4,6 +4,17 @@ AI20K K5, ngày 8. Nhóm xử lý claim hoàn phí vận chuyển của công ty
 
 **Loại bài:** Nhóm · **Thời lượng:** 4 giờ tại lớp (13:30–17:30) · **Deadline:** lớp sáng 23h59 GMT+7 ngày lab; lớp chiều/tối 11h59 GMT+7 ngày hôm sau ([SUBMISSION.md](SUBMISSION.md#deadline-gmt7))
 
+## Trạng thái bài của NhomABC
+
+Đây là repo bài làm của nhóm 4 người, đã triển khai đủ `workflow`, `single`, `orchestrator` và giữ `swarm` làm đối chứng. Shape chọn là **workflow**; xem [ADR](report/team/decision_adr.md), [báo cáo nhóm](report/team/group_report.md), [research card và ablation R3](report/team/research_card.md), [thành viên và đóng góp](TEAM.md).
+
+- Code và bằng chứng: commit `fd7275e`; tài liệu: `6b55066`; đã ghép vào `main` qua PR #4 tại `3d3dbe7`.
+- Kiểm tra bản code này: **78 test host**, **248 test student** xanh; crash suite **20/20**. Mỗi shape có 62 test student; số test tăng khi nhóm thêm test.
+- [Benchmark](src/reports/benchmark.json): 4 shape × 14 claim × 5 seed = **280 trial**; ba shape nhóm viết đều 70/70, swarm 69/70 với một lỗi cố ý.
+- [Ablation draft on/off](src/reports/ablation_workflow_draft.json): **140 trial**, cả hai điều kiện 70/70. Chi phí trong lab là mô phỏng; chưa có kết quả hidden.
+
+Các mục bên dưới giữ yêu cầu và hướng dẫn của đề. Những số liệu “lúc mới clone starter” là trạng thái ban đầu của đề, không phải kết quả hiện tại của repo nhóm. Mọi lệnh Python chạy trong `src/`; cách tái lập ở [src/README.md](src/README.md) và [src/reports/README.md](src/reports/README.md).
+
 ## Mục tiêu học tập
 
 - Cài cùng một quy trình xử lý claim theo bốn kiến trúc, cùng chữ ký `run_claim`, và hiểu ranh giới: số tiền, approval, chống ghi trùng do **code** quyết; model chỉ đọc và soạn chữ.
@@ -29,7 +40,7 @@ AI20K K5, ngày 8. Nhóm xử lý claim hoàn phí vận chuyển của công ty
 
 ## Việc nhóm làm
 
-Repo này là starter. Các phần đã chạy được ngay: swarm tham chiếu, world, MockLLM, host. Ba shape còn lại do nhóm viết.
+Đề ban đầu cung cấp starter gồm swarm tham chiếu, world, MockLLM và host. Nhóm đã hoàn thành ba shape còn lại theo phân công dưới đây.
 
 | Shape | Việc của nhóm | Ai tính tiền và gọi ghi refund |
 | --- | --- | --- |
@@ -40,7 +51,7 @@ Repo này là starter. Các phần đã chạy được ngay: swarm tham chiếu
 
 Ở cả bốn shape, `durability.issue_refund` là cửa của host: host kiểm approval, trần theo đơn và idempotency rồi mới ghi ledger. Shape truyền **quote đầy đủ**, không tự trừ phần đã hoàn trước đó.
 
-Code viết vào `src/lab8/shapes/workflow.py`, `single.py`, `orchestrator.py`. Đầu mỗi file có hướng dẫn từng bước, chỗ cần sửa có dòng `TODO CP2` và `TODO CP3`. Giữ nguyên chữ ký hàm:
+Code nằm trong `src/lab8/shapes/workflow.py`, `single.py`, `orchestrator.py`. Các dấu `TODO CP2`/`TODO CP3` thuộc starter ban đầu; bản nhóm đã thay bằng triển khai. Giữ nguyên chữ ký hàm:
 
 ```python
 run_claim(claim_id: str, *, seed: int, store_path: str, crash_at: str | None = None) -> RunResult
@@ -50,7 +61,7 @@ run_claim(claim_id: str, *, seed: int, store_path: str, crash_at: str | None = N
 
 - **Ba điều kiện must-pass** cho shape nhóm chọn, vi phạm thì không bù được bằng điểm khác: không refund khi thiếu approval hợp lệ; không lộ `CANARY_SECRET_*` trong trace hay kết quả; crash không tạo hơn một refund (crash suite `20/20`).
 - **Bộ hidden:** shape nhóm chọn phải đạt pass rate ≥ 0.75 trên 40 claim × 5 seed.
-- `python -m pytest -q` vẫn xanh khi nộp; không sửa các file thước đo (`metrics.py`, `grade_hidden.py`, `durability.py`, `policy.py`, `config/`, `data/`).
+- `python -m pytest -q` vẫn xanh khi nộp; không sửa `src/lab8/metrics.py`, `durability.py`, `policy.py`, `src/config/`, `src/data/`. Grader hidden nằm ở repo riêng của giảng viên, không có `grade_hidden.py` để chạy trong repo nhóm.
 
 Thang 100 điểm và bonus: [RUBRIC.md](RUBRIC.md).
 

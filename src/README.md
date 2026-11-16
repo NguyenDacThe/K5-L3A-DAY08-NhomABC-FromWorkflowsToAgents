@@ -2,18 +2,20 @@
 
 Toàn bộ code, dữ liệu, config và test của lab nằm trong thư mục này. **Mọi lệnh chạy trong `src/`** (thư mục có file `README.md` này và `requirements.txt`).
 
+**Bản nhóm đã hoàn thành:** ba shape đều được triển khai; cổng host 78 passed, ma trận student 248 passed, crash suite 20/20. Các số 52 passed hoặc 186 failed / 62 passed bên dưới chỉ mô tả starter gốc. Shape chọn, số liệu và giới hạn nằm trong [ADR](../report/team/decision_adr.md).
+
 - File bắt đầu chạy: `lab8/smoke.py` (kiểm cài đặt), `lab8/run.py` (chạy một claim), `lab8/benchmark.py` (so 4 shape).
 - Cách chạy: `python -m lab8.smoke`, rồi các lệnh ở mục [Các lệnh trong buổi lab](#các-lệnh-trong-buổi-lab).
 - Input: `data/public_claims.jsonl` (14 claim, mã `C-001`…; field `matrix_id` cho biết claim đó là test nào từ T01 đến T14, ví dụ `C-001` là T01), `data/public_world_state.json` (order, policy, approval), `config/*.yaml` (policy, giá mô phỏng, manifest tool).
-- Output: `reports/benchmark.json`, `reports/crash.json` (commit lên repo), `traces/*.json` và file `*.sqlite` (không commit, đã có trong `.gitignore`).
-- File học viên được sửa: `lab8/shapes/workflow.py`, `lab8/shapes/single.py`, `lab8/shapes/orchestrator.py` (chỗ cần viết đánh dấu `TODO CP2` / `TODO CP3`). Được thêm test mới trong `tests/` và code bonus trong `bonus/`. **Không sửa** `lab8/metrics.py`, `lab8/durability.py`, `lab8/policy.py`, `config/*.yaml`, `data/*`. Chấm hidden chạy ở grader riêng của giảng viên, chỉ lấy 3 file shape và `bonus/` từ repo nhóm; file khác bị bỏ qua và ghi là tampered.
+- Output: `reports/benchmark.json`, `reports/crash.json`, `reports/ablation_workflow_draft.json` (commit lên repo); `traces/` và file `*.sqlite` không commit theo `.gitignore`.
+- File học viên được sửa: `lab8/shapes/workflow.py`, `lab8/shapes/single.py`, `lab8/shapes/orchestrator.py` (starter đánh dấu `TODO CP2` / `TODO CP3`, bản nhóm đã triển khai). Được thêm test/runner nghiên cứu trong `tests/`, tài liệu và code bonus trong `bonus/`. **Không sửa** `lab8/metrics.py`, `lab8/durability.py`, `lab8/policy.py`, `config/*.yaml`, `data/*`. Chấm hidden chạy ở grader riêng của giảng viên, chỉ lấy 3 file shape và `bonus/` từ repo nhóm; thay đổi host không được dùng để cải thiện kết quả chấm.
 
 ## Cấu trúc
 
 | Đường dẫn | Nội dung |
 | --- | --- |
-| `lab8/shapes/` | 4 shape. `swarm_reference.py` có sẵn; `workflow.py`, `single.py`, `orchestrator.py` là stub nhóm phải viết |
-| `lab8/` | Host (policy, ledger, handoff, durability), MockLLM, runner, benchmark, grader, `check_submission` |
+| `lab8/shapes/` | 4 shape. `swarm_reference.py` có sẵn; ba shape còn lại đã được nhóm triển khai |
+| `lab8/` | Host, MockLLM, runner, benchmark, evaluator public và `check_submission`; grader hidden ở repo riêng |
 | `config/` | `autonomy_policy.yaml`, `pricing.yaml`, `tools.manifest.v1.1.yaml` |
 | `data/` | Fixture public: `public_claims.jsonl`, `public_world_state.json` |
 | `tests/` | Cổng host (mặc định) và ma trận student T01–T14 (marker `student`) |
@@ -63,6 +65,13 @@ Nếu PowerShell báo `running scripts is disabled on this system`, chạy lện
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 ```
 
+Nếu `py` báo không tìm thấy Python dù `python --version` là 3.11–3.13, dùng `python -m venv .venv`. Có thể bỏ qua activate và gọi thẳng interpreter của venv:
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe -m pytest -q
+```
+
 ### Windows: Command Prompt (cmd)
 
 ```bat
@@ -101,6 +110,8 @@ Mỗi lệnh nằm trên một dòng, nên copy được vào PowerShell, cmd ha
 | Chạy một claim với crash | `python -m lab8.run --shape workflow --claim-id C-012 --seed 11 --db data/crash.sqlite --crash-at after_effect_before_checkpoint` |
 | Benchmark 4 shape × 5 seed | `python -m lab8.benchmark --shapes workflow,single,orchestrator,swarm --cases data/public_claims.jsonl --seeds 11,22,33,44,55 --out reports/benchmark.json` |
 | Crash suite 20 điểm | `python -m lab8.crash_test --count 20 --out reports/crash.json` |
+| Ablation R3: bật/tắt draft workflow | `python -m tests.run_draft_ablation --out reports/ablation_workflow_draft.json` |
+| Test phần evaluation và ablation | `python -m pytest -q tests/test_eval_nguyendacthe.py tests/test_draft_ablation.py` |
 | Demo phản ví dụ (checkpoint không thay được ledger) | `python -m lab8.demo.buggy_workflow` |
 
 `python -m pytest -q` là cổng đầu buổi. Bộ này kiểm contract, compensation, approval, idempotency, handoff, crash 20/20, trần hoàn tiền theo đơn, approval đúng claim, và swarm trên T01–T10, T13, T14. Phải xanh hết trước khi chia việc, và phải giữ xanh suốt buổi. Kết quả mong đợi lúc mới clone: `52 passed, 248 deselected`, không có dòng `failed`. Nhóm thêm test vào cổng host thì số passed tăng theo.
@@ -108,6 +119,8 @@ Mỗi lệnh nằm trên một dòng, nên copy được vào PowerShell, cmd ha
 Ma trận student lúc mới clone: **186 failed, 62 passed**. 62 test swarm xanh, 3 shape stub × 62 test đỏ. Shape nào làm xong thì 62 test của shape đó phải xanh.
 
 `--crash-at` nhận `before_effect` (crash trước khi ghi refund) `after_effect_before_checkpoint` (đã ghi refund nhưng chưa kịp lưu checkpoint) hoặc `after_checkpoint` (đã lưu checkpoint). Chạy lại cùng lệnh không có `--crash-at` trên cùng DB để mô phỏng resume.
+
+CLI `lab8.run` in `{"crashed": true, ...}` và trả exit code **2** khi fault injection được kích hoạt. Đây là kết quả mong đợi của lệnh crash; resume bằng cùng DB, không truyền `--crash-at`. Crash suite chuẩn kiểm host và swarm; T11/T12 cùng test bổ sung mới kiểm retry/crash trực tiếp ba shape của nhóm.
 
 `run.py` chỉ tạo DB khi file `--db` chưa tồn tại. Chạy lại trên cùng DB là kịch bản retry/resume. Muốn chạy lại từ đầu thì xóa file `.sqlite` hoặc đổi tên `--db`.
 

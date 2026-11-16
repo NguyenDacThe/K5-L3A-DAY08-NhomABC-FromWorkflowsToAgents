@@ -6,6 +6,8 @@ Có ba bản `summarize` ứng viên: `grader_a.py`, `grader_b.py`, `grader_c.py
 
 Không bản nào được chú thích hay đặt tên theo chất lượng. Việc của nhóm là tìm ra bản nào lệch, bằng bằng chứng chạy được.
 
+Đây là tài nguyên bonus, không phải grader hidden chấm bài chính. Không giả định một bản duy nhất phải qua mọi quan hệ: các ứng viên còn dùng chung hàm cơ sở, nên một lỗi chung cũng có thể xuất hiện. Report phải mô tả hành vi quan sát được, không suy chất lượng từ tên a/b/c.
+
 ## Quan hệ metamorphic
 
 Quan hệ metamorphic không cần biết đáp án đúng tuyệt đối. Nó chỉ nói: đổi input theo cách này thì output phải đổi (hoặc không đổi) theo cách kia.
@@ -25,3 +27,5 @@ python -m pytest -q tests/test_grader_audit_smoke.py
 ```
 
 Smoke test chỉ kiểm ba module import được và trả về `dict`. Nó không nói bản nào đúng.
+
+Danh mục đề có B7 nhưng checker nộp bài hiện chỉ nhận tiêu đề bonus B1–B6; xem [SUBMISSION.md](../../SUBMISSION.md). Nhóm chưa thực hiện B7; research card R3 và runner draft on/off không thay thế bài kiểm toán grader này.

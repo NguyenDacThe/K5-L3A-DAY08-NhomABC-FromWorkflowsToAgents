@@ -44,7 +44,7 @@ Workflow ghi event `claim` (found/has_order_id), `lookup_order` đã qua allowli
 
 Không ghi nguyên ticket, claim/order row thô, parent context, `parent_secret`, header, phone, address, internal note hoặc item name. Prompt draft chỉ chứa status. Handoff của orchestrator chỉ chứa field allowlist và tool đọc; investigator không có registry ghi refund.
 
-Trace ở `src/traces/<run_id>.json`; scanner của repo đọc trace và các file `<run_id>*` liên quan. Không có debug dump riêng do nhóm thêm ngoài vùng này. Trace không commit; người chấm tái tạo bằng các lệnh trong [báo cáo nhóm](group_report.md). Test `test_workflow_bao.py` và evaluator public quét chuỗi cấm; đây là bằng chứng có phạm vi, không phải chứng minh tuyệt đối rằng hệ thống không bao giờ rò dữ liệu.
+Trace ở `src/traces/<run_id>.json`; scanner của repo đọc trace và các file `<run_id>*` liên quan. Các shape không tạo debug dump riêng ngoài vùng này. `src/loi-test.txt` là log kiểm thử lịch sử, không thay thế report/trace tái tạo. Trace không commit; người chấm tái tạo bằng các lệnh trong [báo cáo nhóm](group_report.md). Test `test_workflow_bao.py` và evaluator public quét chuỗi cấm; đây là bằng chứng có phạm vi, không phải chứng minh tuyệt đối rằng hệ thống không bao giờ rò dữ liệu.
 
 Crash suite chuẩn 20/20 chủ yếu kiểm host và có một ca swarm. Bằng chứng riêng cho workflow là T11/T12 trong ma trận student và hai cửa sổ còn lại trong `test_eval_nguyendacthe.py`: crash có thật, resume dùng cùng DB, ledger/audit được đối chiếu.
 

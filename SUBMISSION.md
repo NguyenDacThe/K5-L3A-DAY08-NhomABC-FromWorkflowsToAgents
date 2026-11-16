@@ -40,7 +40,7 @@ git push -u origin main
 | `report/team/decision_adr.md` | Shape chọn, commit hash, run id, số liệu. Giữ nguyên các dòng nhãn |
 | `report/team/research_card.md` | Phiếu nghiên cứu R1–R4 và kết quả ablation. Cột "Nhóm điền" không để trống |
 | `report/team/MSSV_HoTen.md` | Mỗi thành viên một file, copy từ mẫu và đổi tên, ví dụ `report/team/20241234_NguyenVanAn.md` |
-| `report/team/bonus_report.md` | Chỉ khi làm bonus. Tiêu đề `# Bonus report: B1` … `B6` |
+| `report/team/bonus_report.md` | Chỉ khi làm bonus B1–B7; xem giới hạn checker cho B7 bên dưới |
 
 ### Code và bằng chứng (trong `src/`)
 
@@ -55,14 +55,18 @@ git push -u origin main
 
 Không sửa tay file JSON trong `src/reports/`. Không commit `traces/`, `*.sqlite`, `student_drop/`, `src/eval/instructor/`, `.venv/` hay `.env`.
 
+Research card và ablation một biến là phần bài chính, không tự động tính là bonus B4. Nhóm hiện có bằng chứng `src/reports/ablation_workflow_draft.json`; không cần tạo `bonus_report.md` khi chưa thực hiện topic bonus.
+
+**Giới hạn phiên bản checker:** danh mục đề có B1–B7 nhưng `lab8.check_submission._check_bonus` hiện chỉ nhận tiêu đề B1–B6. Report B7 có thể bị báo FAIL dù đúng topic. Đây là chênh lệch giữa tài liệu và công cụ cần được giảng viên xử lý ở bản chấm; không đổi nhãn B7 thành B6 để vượt checker và không sửa grader của nhóm để lấy điểm.
+
 ### Thứ tự nộp
 
 Chạy trong `src/`:
 
-1. `python -m pytest -q` xanh.
-2. Chạy benchmark và crash test ([src/reports/README.md](src/reports/README.md)) để tạo `reports/benchmark.json`, `reports/crash.json`.
-3. Commit, rồi chạy `git rev-parse --short HEAD`. Ghi hash và run id vào `report/team/decision_adr.md`, rồi commit tiếp.
-4. `python -m lab8.check_submission` ra `0 FAIL`, rồi push.
+1. `python -m pytest -q` và `python -m pytest -q -m student -o addopts=` xanh. Cổng mặc định không chạy ma trận student.
+2. Chạy benchmark và crash test ([src/reports/README.md](src/reports/README.md)) để tạo `reports/benchmark.json`, `reports/crash.json`; chạy ablation đã chọn để có bằng chứng research card.
+3. Commit code, test và report được sinh; lấy hash bằng `git rev-parse --short HEAD`. Ghi hash phiên bản code đã đo và run id vào `report/team/decision_adr.md`, rồi commit tài liệu. Không cần đổi hash ADR theo mọi commit chỉ sửa tài liệu.
+4. `python -m lab8.check_submission` ra `0 FAIL`, rồi push và ghép các phần vào nhánh nộp. Công cụ kiểm format, không thay thế các test hoặc kết quả hidden. Xác nhận repo truy cập được cho người chấm và mỗi thành viên tự nộp link LMS.
 
 ## Deadline (GMT+7)
 

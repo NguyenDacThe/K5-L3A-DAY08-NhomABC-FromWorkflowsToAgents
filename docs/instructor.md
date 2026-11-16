@@ -1,6 +1,6 @@
 # Dành cho giảng viên
 
-Học viên không cần đọc file này. Mọi đường dẫn và lệnh dưới đây tính từ thư mục `src/`.
+Học viên không cần đọc file này. Lệnh bên dưới chạy trong `src/`; tên đường dẫn bắt đầu bằng `src/` hoặc `.github/` được tính từ gốc repo. Các file hidden nhắc tới chỉ tồn tại trên máy giảng viên, không phải file bị thiếu trong clone của học viên.
 
 - **Pack hidden không có trong git.** Thư mục `src/eval/instructor/` bị `.gitignore` chặn và chỉ có trên máy soạn bài. Giữ một bản sao ở kho lưu trữ riêng của khóa học, không đẩy lên repo này. Cần tạo lại thì đặt `generate_hidden.py` vào `eval/instructor/`, rồi chạy `python scripts/build_public_fixtures.py` và `python eval/instructor/generate_hidden.py`. Quy trình chi tiết nằm trong `eval/instructor/README_GIANG_VIEN.md`.
 - **16:15 phát cho học viên:** chỉ copy `eval/instructor/student_drop/` (claim không nhãn và world state). Không gửi `hidden_labels.json`, `hidden_claims.jsonl` bản đầy đủ, hay `generate_hidden.py`.
@@ -11,7 +11,7 @@ Học viên không cần đọc file này. Mọi đường dẫn và lệnh dư�
   ```
 
   Gate: shape nhóm chọn có pass rate ≥ 0.75 trên 200 trial (≥ 0.80 nếu muốn nhận điểm cộng); `secret_leak_count`, `pii_leak_count`, `approval_bypass_count` bằng 0; crash 20/20. Lưu ý `crash_test` kiểm host và swarm. Crash của shape nhóm được kiểm qua T12 trong ma trận student.
-- **Đối chứng mong đợi:** swarm trên hidden ra pass 0.97, pass^5 0.85, chỉ fail ở seed 55. Một workflow đúng ra 1.0 / 1.0.
+- **Đối chứng của pack gốc:** tài liệu đề ghi swarm hidden pass khoảng 0.97, pass^5 0.85; workflow đúng kỳ vọng 1.0 / 1.0. Đây là số tham chiếu của pack giảng viên, chưa được nhóm kiểm chứng và không phải kết quả hidden của NhomABC. Khi đổi pack hoặc code, cần chạy lại; không đưa các số tham chiếu này vào báo cáo nhóm như số đã đo.
 - **Grader chống ghi lén:** trial fail với lý do `unexpected_ledger_rows` nếu ledger có dòng không thuộc claim đang chấm và không phải refund lịch sử đã seed. Shape không thể ghi tiền dưới claim id khác mà lọt.
 - **Chấm bonus:** quy trình 10 phút mỗi nhóm ở cuối `docs/bonus_topics.md`. Biến thể bonus chấm trên hidden bằng cờ `--extra-shape`.
 - **Chấm nhiều nhóm:** chạy grader riêng lần lượt cho từng repo nhóm, trỏ `--pack` tới pack của giảng viên bằng đường dẫn tuyệt đối. Shape được chấm cổng hidden lấy từ dòng `- Shape chọn:` trong `report/team/decision_adr.md`. Một shape ném exception chỉ làm fail trial của shape đó, các shape khác vẫn được chấm.

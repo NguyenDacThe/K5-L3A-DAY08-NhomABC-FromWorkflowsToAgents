@@ -11,6 +11,7 @@
 
 - Vai trò người thứ 4: kiểm thử tích hợp, evaluation, nghiên cứu R3/ablation và tổng hợp hồ sơ nhóm.
 - Làm trên nhánh `NguyenDacThe`, cập nhật code ba shape từ main trước khi kiểm thử chung.
+- Phần việc đã merge vào nhánh nộp `main` qua PR #4 tại `3d3dbe7`; commit code/bằng chứng được giữ riêng với commit hoàn thiện tài liệu.
 - Phối hợp với ba thành viên phụ trách workflow, single và orchestrator; không sửa host, thước đo, config hoặc dữ liệu để làm test xanh.
 
 ## 3. Đóng góp cụ thể
@@ -30,6 +31,7 @@
 - [crash.json](../../src/reports/crash.json): suite chuẩn **20/20**; phân biệt suite host với kiểm thử crash trực tiếp từng shape.
 - [ablation_workflow_draft.json](../../src/reports/ablation_workflow_draft.json): 140 trial, cả hai điều kiện 70/70; cost/success giảm 35,228571 → 34,285714 VND mô phỏng (2,676399%), model call 1 → 0/trial.
 - Report ablation lưu HEAD trước commit; hash nguồn khớp nội dung tại commit kỹ thuật. Chưa có dữ liệu hidden; không tự khai điểm hidden hoặc các bộ đếm bảo mật chính thức.
+- Bản tài liệu `6b55066` đã được kiểm `lab8.check_submission`: **0 FAIL, 0 WARN**. Đây là kiểm tra format, không thay thế điểm hidden hoặc xác nhận đã nộp LMS.
 
 Lệnh tái lập chạy trong `src/`, sau khi activate venv:
 

@@ -2,6 +2,8 @@
 
 Các file quy định chính nằm ở root repo: [README.md](../README.md), [RULES.md](../RULES.md), [CHECKPOINTS.md](../CHECKPOINTS.md), [RUBRIC.md](../RUBRIC.md), [SUBMISSION.md](../SUBMISSION.md), [TEAM.md](../TEAM.md). Cài đặt và lệnh chạy: [src/README.md](../src/README.md).
 
+Bản nhóm đã hoàn thành ba shape và chọn workflow. Kết quả hiện có và phạm vi suy luận ở [báo cáo nhóm](../report/team/group_report.md), [ADR](../report/team/decision_adr.md), [research card](../report/team/research_card.md); cách sinh lại JSON ở [reports/README.md](../src/reports/README.md). Tài liệu bonus/instructor là hướng dẫn mở rộng, không có nghĩa nhóm đã thực hiện bonus hoặc đã có kết quả hidden.
+
 | File | Nội dung | Khi nào đọc |
 | --- | --- | --- |
 | [business_rules.md](business_rules.md) | Luật nghiệp vụ hoàn phí (synthetic), ví dụ T01, T13, T14, trần hoàn tiền theo đơn | Trước khi code (CP1) |
