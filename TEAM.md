@@ -18,6 +18,13 @@
 |   2 | Nguyễn Minh Đạt | 2A202603582 | nguyenminhdat6401@gmail.com | https://github.com/nguyenminhdat6401 | Single agent |
 |   3 | Trương Văn Thông | 2A202603560 | thongthong2k41306@gmail.com | https://github.com/thongthong2k41306-beep | Orchestrator + handoff |
 |   4 | Nguyễn Đắc Thể | 2A202603529 | dacthebn@gmail.com | https://github.com/NguyenDacThe | Kiểm thử, evaluation, ablation và tổng hợp báo cáo |
+|   3 |   Trương Văn Thông |2A202603560|thongthong2k41306@gmail.com|https://github.com/thongthong2k41306-beep |    Orchestrator|
+|   4 |        |      |       |        |         |
+
+Gợi ý chia vai:
+
+- Nhóm 6 người: integration; workflow; single agent; orchestrator; ledger/policy/crash; eval/report.
+- Nhóm 4 người: workflow + integration; single; orchestrator + handoff; ledger + evaluation.
 
 ## Bảng đóng góp
 
