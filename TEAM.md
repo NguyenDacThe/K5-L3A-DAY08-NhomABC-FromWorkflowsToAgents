@@ -60,3 +60,28 @@ Sao chép mục dưới đây cho từng thành viên.
 - Ma trận student orchestrator: 62 passed. Test host sau khi thêm test: 58 passed.
 - `src/reports/benchmark.json`: orchestrator pass 70/70 trial public; `src/reports/crash.json`: suite chuẩn 20/20.
 - Run id: `R-orchestrator-C-001-s11`, `R-orchestrator-C-012-s11`. Test crash riêng orchestrator: `test_orchestrator_resumes_each_crash_window`.
+
+## 2A202603582_NguyenMinhDat
+
+### Phần việc phụ trách
+
+- Triển khai và kiểm thử single agent tại
+  src/lab8/shapes/single.py.
+
+### Đóng góp cụ thể
+
+- Sử dụng run_react với giới hạn 8 bước.
+- Điều phối tool đọc dựa trên observation bằng logic Python.
+- Ghi nhận usage của MockLLM qua Budget.
+- Host ghi refund sau vòng lặp; truyền quote đầy đủ và crash_at.
+- Ghi trace và trả RunResult bằng common.finish.
+- Bổ sung kiểm tra claim không tồn tại cho single.
+
+### Bằng chứng
+
+- Commit: eef682d
+- Test: src/tests/test_student_unknown_claim.py,
+  trường hợp tham số single.
+- Kiểm tra riêng single: 62 passed.
+- Benchmark single: pass rate 1.000, pass^5 1.000.
+- Báo cáo cá nhân: report/team/2A202603582_NguyenMinhDat.md.
