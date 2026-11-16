@@ -64,6 +64,7 @@ Có thể tái lập bằng `python -m tests.run_draft_ablation --out reports/ab
 - Bước draft gọi MockLLM thật của lab khi bật; khi tắt, runner bỏ hẳn lời gọi, không giả số token/cost và không thay evaluator. Không sửa `workflow.py`, host, config, dữ liệu hoặc file JSON bằng tay.
 - Runner nằm trong `src/tests/` để hỗ trợ thí nghiệm. Test `src/tests/test_draft_ablation.py` kiểm tra resolved, needs_info, T14 chỉ hoàn phần chênh và claim không tồn tại; kiểm tra kết quả nghiệp vụ giống nhau, budget đúng và các binding được khôi phục kể cả khi thí nghiệm ném exception.
 - Hash Git trong report là HEAD tại thời điểm chạy, có thể chưa chứa các file mới. SHA-256 đi kèm định danh nội dung working tree thực sự được đo; không coi HEAD cũ là commit đã chứa runner.
+- Code, runner và bằng chứng đã được đưa vào commit kỹ thuật `fd7275e054c501b10f96bcc2272aa945633e6da0`. SHA-256 trong report khớp nguồn tại commit này; HEAD `f26fa94` lưu trong report phản ánh thời điểm chạy trước khi commit, được giữ nguyên. ADR chọn workflow mặc định (`draft_on`), không dùng cost của `draft_off` thay cho baseline.
 - Kết quả public không chứng minh hiệu năng hidden hoặc production. Evaluator không chấm chất lượng câu trả lời khách; trong workflow này, chuỗi draft không đi vào `RunResult`. Vì vậy thí nghiệm không đo được tác động khi khách cần một câu trả lời hữu ích.
 - `steps` là số event trace theo contract, không phải số lời gọi model; giảm model call có thể không làm metric steps giảm. Hai điều kiện giữ nguyên quy tắc đếm của repo.
 

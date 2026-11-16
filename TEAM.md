@@ -4,25 +4,20 @@
 
 - Tên nhóm: NhomABC
 - Lớp: L3A
-- Repo nhóm: `K5-L3A-DAY08-TenNhom-FromWorkflowsToAgents` (xem [SUBMISSION.md](SUBMISSION.md))
-- URL repo, nhánh nộp, commit chốt: https://github.com/NguyenDacThe/K5-L3A-DAY08-NhomABC-FromWorkflowsToAgents, nhánh `main`, commit chốt `<HASH_CHOT>`
-- URL repo, nhánh nộp, commit chốt: https://github.com/NguyenDacThe/K5-L3A-DAY08-NhomABC-FromWorkflowsToAgents, main,
+- Repo nhóm: `K5-L3A-DAY08-NhomABC-FromWorkflowsToAgents`
+- URL repo: https://github.com/NguyenDacThe/K5-L3A-DAY08-NhomABC-FromWorkflowsToAgents
+- Nhánh hoàn thiện: `NguyenDacThe`; nhánh nộp dự kiến: `main` sau khi merge PR.
+- Commit code và bằng chứng dẫn chiếu: `fd7275e054c501b10f96bcc2272aa945633e6da0` (thống nhất với ADR và báo cáo nhóm; tài liệu được cập nhật bằng commit sau).
+- Shape chọn: `workflow`, lý do và phạm vi bằng chứng tại [decision_adr.md](report/team/decision_adr.md).
 
 ## Thành viên
 
 | STT | Họ tên | MSSV | Email | GitHub | Vai trò |
 | --: | ------ | ---- | ----- | ------ | ------- |
 |   1 | Phan Gia Bảo | 2A202603562 | pgb4work@gmail.com | pgb4work-ai-vinuni | workflow + integration |
-|   2 |        |      |       |        |         |
-|   1 |        |      |       |        |         |
 |   2 | Nguyễn Minh Đạt | 2A202603582 | nguyenminhdat6401@gmail.com | https://github.com/nguyenminhdat6401 | Single agent |
-|   3 |        |      |       |        |         |
-|   4 |        |      |       |        |         |
-
-Gợi ý chia vai:
-
-- Nhóm 6 người: integration; workflow; single agent; orchestrator; ledger/policy/crash; eval/report.
-- Nhóm 4 người: workflow + integration; single; orchestrator + handoff; ledger + evaluation.
+|   3 | Trương Văn Thông | 2A202603560 | thongthong2k41306@gmail.com | https://github.com/thongthong2k41306-beep | Orchestrator + handoff |
+|   4 | Nguyễn Đắc Thể | 2A202603529 | dacthebn@gmail.com | https://github.com/NguyenDacThe | Kiểm thử, evaluation, ablation và tổng hợp báo cáo |
 
 ## Bảng đóng góp
 
@@ -31,20 +26,18 @@ Gợi ý chia vai:
 | Người | Vai | Commit | Test đã thêm hoặc sửa |
 | --- | --- | --- | --- |
 | Phan Gia Bảo | workflow + integration | `926aea2ab8c82628a20c41a20c5bb8fb77380e52` | `src/tests/test_workflow_bao.py` (8 test: T02 không tin ticket, T14 full quote, claim không tồn tại, trace không lộ secret/PII) |
-| Trương Văn Thông (2A202603560) | Orchestrator, handoff, trace và kiểm tra retry/crash | th | `src/tests/test_orchestrator.py`: `test_orchestrator_resumes_each_crash_window` (3 trường hợp), `test_orchestrator_unknown_claim_returns_fresh_trace` |
+| Trương Văn Thông (2A202603560) | Orchestrator, handoff, trace và kiểm tra retry/crash | `6a023df85a1eb31d322d9c22944fe0203086d9a2` | `src/tests/test_orchestrator.py`: `test_orchestrator_resumes_each_crash_window` (3 trường hợp), `test_orchestrator_unknown_claim_returns_fresh_trace` |
 | Nguyễn Minh Đạt | Triển khai và kiểm thử single agent | eef682d | src/tests/test_student_unknown_claim.py — trường hợp single |
+| Nguyễn Đắc Thể (2A202603529) | Kiểm thử, benchmark, ablation và báo cáo | `fd7275e054c501b10f96bcc2272aa945633e6da0` | `src/tests/test_eval_nguyendacthe.py` (4 trường hợp crash/resume workflow/single); `src/tests/test_draft_ablation.py` (5 trường hợp) |
 
 ## Cá nhân
 
-Mỗi thành viên đồng thời tạo một báo cáo riêng trong `report/` theo dạng:
+Mỗi thành viên có báo cáo riêng dưới `report/team/`; file mẫu `MSSV_HoTen.md` được giữ để tham khảo.
 
-```text
-report/team/MSSV_HoTen.md
-```
-
-Ví dụ: `report/team/20241234_NguyenVanAn.md`.
-
-Sao chép mục dưới đây cho từng thành viên.
+- [Phan Gia Bảo](report/team/2A202603562_PhanGiaBao.md).
+- [Nguyễn Minh Đạt](report/team/2A202603582_NguyenMinhDat.md).
+- [Trương Văn Thông](report/team/2A202603560_TruongVanThong.md).
+- [Nguyễn Đắc Thể](report/team/2A202603529_NguyenDacThe.md).
 
 ## 2A202603560_TruongVanThong
 
@@ -56,11 +49,14 @@ Sao chép mục dưới đây cho từng thành viên.
 
 - Hoàn thiện `src/lab8/shapes/orchestrator.py` với sự hỗ trợ của Codex; giữ nguyên contract, dùng quote đầy đủ và để host kiểm approval, trần hoàn tiền, idempotency.
 - Bổ sung `src/tests/test_orchestrator.py`: ba cửa sổ crash/resume và trường hợp claim không tồn tại.
-- Chưa có commit cá nhân cho các thay đổi này; bổ sung hash thực sau khi commit.
+- Commit kỹ thuật: `6a023df85a1eb31d322d9c22944fe0203086d9a2`.
 
 ### Bằng chứng
 
--
+- `src/tests/test_orchestrator.py`: kiểm tra ba cửa sổ crash/resume và claim không tồn tại.
+- Ma trận student orchestrator: 62 passed; benchmark public: 70/70 trial.
+- Run id: `R-orchestrator-C-001-s11`, `R-orchestrator-C-012-s11`.
+- Báo cáo: [2A202603560_TruongVanThong.md](report/team/2A202603560_TruongVanThong.md).
 
 ## 2A202603562_PhanGiaBao
 
@@ -77,10 +73,7 @@ Sao chép mục dưới đây cho từng thành viên.
 ### Bằng chứng
 
 - Commit `926aea2ab8c82628a20c41a20c5bb8fb77380e52`; ma trận student workflow 62 passed; `check_submission` workflow 12/12; báo cáo chi tiết `report/team/2A202603562_PhanGiaBao.md`.
-- Báo cáo cá nhân: [2A202603560_TruongVanThong.md](report/team/2A202603560_TruongVanThong.md).
-- Ma trận student orchestrator: 62 passed. Test host sau khi thêm test: 58 passed.
-- `src/reports/benchmark.json`: orchestrator pass 70/70 trial public; `src/reports/crash.json`: suite chuẩn 20/20.
-- Run id: `R-orchestrator-C-001-s11`, `R-orchestrator-C-012-s11`. Test crash riêng orchestrator: `test_orchestrator_resumes_each_crash_window`.
+- `src/reports/benchmark.json`: workflow pass 70/70 trial public; `src/reports/crash.json`: suite chuẩn 20/20.
 
 ## 2A202603582_NguyenMinhDat
 
@@ -117,3 +110,22 @@ Sao chép mục dưới đây cho từng thành viên.
 - Kiểm tra riêng single: 62 passed.
 - Benchmark single: pass rate 1.000, pass^5 1.000.
 - Báo cáo cá nhân: [2A202603582_NguyenMinhDat.md](report/team/2A202603582_NguyenMinhDat.md).
+
+## 2A202603529_NguyenDacThe
+
+### Phần việc phụ trách
+
+- Kiểm thử tích hợp sau khi ghép ba shape, đo benchmark và hoàn thiện bằng chứng nghiên cứu R3.
+
+### Đóng góp cụ thể
+
+- Bổ sung hai cửa sổ crash còn thiếu cho workflow/single, tổng 4 trường hợp.
+- Viết runner và 5 test cho ablation draft on/off; giữ nguyên shape, host, dữ liệu và evaluator.
+- Chạy lại benchmark chuẩn 4 shape, tổng 280 trial; chạy ablation 140 trial và đối chiếu nguồn bằng SHA-256.
+- Tổng hợp ADR, báo cáo nhóm và báo cáo cá nhân với Codex hỗ trợ; phân biệt bằng chứng public với hidden chưa có.
+
+### Bằng chứng
+
+- Commit kỹ thuật `fd7275e`; các test và report nêu trong bảng đóng góp.
+- Cổng host 78 passed, ma trận student 248 passed, crash suite 20/20; chi tiết tại [group_report.md](report/team/group_report.md).
+- Báo cáo: [2A202603529_NguyenDacThe.md](report/team/2A202603529_NguyenDacThe.md).
