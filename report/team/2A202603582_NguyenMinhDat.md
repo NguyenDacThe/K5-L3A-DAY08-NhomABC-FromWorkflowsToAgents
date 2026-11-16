@@ -33,7 +33,7 @@ src/lab8/shapes/single.py.
 - Kiểm tra trường hợp claim không tồn tại trên single
   trong tests/test_student_unknown_claim.py.
 
-Commit chính: [ĐIỀN HASH SAU KHI COMMIT]
+Commit chính: eef682d
 
 ...
 
