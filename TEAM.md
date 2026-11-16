@@ -70,12 +70,23 @@ Sao chép mục dưới đây cho từng thành viên.
 
 ### Đóng góp cụ thể
 
-- Sử dụng run_react với giới hạn 8 bước.
-- Điều phối tool đọc dựa trên observation bằng logic Python.
-- Ghi nhận usage của MockLLM qua Budget.
-- Host ghi refund sau vòng lặp; truyền quote đầy đủ và crash_at.
-- Ghi trace và trả RunResult bằng common.finish.
-- Bổ sung kiểm tra claim không tồn tại cho single.
+- Triển khai single agent trong src/lab8/shapes/single.py,
+  giữ nguyên chữ ký run_claim.
+- Sử dụng run_react với giới hạn tối đa 8 bước.
+- Viết hàm decide chọn tool đọc dựa trên observation
+  bằng logic Python.
+- Sử dụng lookup_order để kiểm tra phạm vi sở hữu đơn.
+- Dùng compute_compensation tính quote từ dữ liệu order,
+  không tin số ngày trễ trong ticket.
+- Gọi MockLLM và ghi nhận usage qua Budget.
+- Tách thao tác ghi refund khỏi vòng ReAct; gọi host
+  với quote đầy đủ và truyền crash_at.
+- Xử lý các trạng thái needs_info, escalated, denied,
+  resolved và failed.
+- Dùng common.finish để tạo RunResult và ghi trace;
+  đóng kết nối bằng finally.
+- Bổ sung test claim không tồn tại cho single và chạy
+  bộ test riêng đạt 62 passed.
 
 ### Bằng chứng 
 
